@@ -15,6 +15,9 @@ function NavBar() {
         <NavItem>
           <Link to="/routine" className="nav-link">Routine</Link>
         </NavItem>
+        <NavItem>
+          <Link to="/newroutine" className="nav-link">New Routine</Link>
+        </NavItem>
       </Nav>
     </Navbar.Collapse>
   </Navbar>
