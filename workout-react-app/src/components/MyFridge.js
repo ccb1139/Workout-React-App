@@ -18,6 +18,7 @@ function MyFridge() {
             });
     }, []);
 
+    // console.log(foods);
     //write code to invert the editFoods state when the edit button is clicked
     const editFood = () => {
         setEditFoods(!editFoods);

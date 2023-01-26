@@ -6,6 +6,7 @@ let dbConfig = require('./database/db');
   
 // Express Route
 const fridgeRoute = require('./routes/fridge.route')
+const groceryRoute = require('./routes/grocery.route')
   
 // Configure mongoDB Database
 // mongoose.set('useNewUrlParser', true);
@@ -30,6 +31,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 app.use('/foods', fridgeRoute)
+app.use('/groceries', groceryRoute)
   
   
 // PORT
