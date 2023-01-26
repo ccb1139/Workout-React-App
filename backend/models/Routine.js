@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let routineSchema = new Schema({
-    title: {
+    foodName: {
         type: String
     },
-    activities: {
+    expirationDate: {
         type: Array
     },
 
