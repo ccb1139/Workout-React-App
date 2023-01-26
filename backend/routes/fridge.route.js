@@ -3,10 +3,10 @@ let mongoose = require("mongoose"),
   router = express.Router();
   
 // Student Model
-let routineSchema = require("../models/Routine");
+let routineSchema = require("../models/Food");
   
 // CREATE Student
-router.post("/create-routine", (req, res, next) => {
+router.post("/create-fridge", (req, res, next) => {
     routineSchema.create(req.body, (error, data) => {
     if (error) {
       return next(error);
@@ -30,7 +30,7 @@ router.get("/", (req, res) => {
   
 // UPDATE student
 router
-  .route("/update-routine/:id")
+  .route("/update-fridge/:id")
   // Get Single Student
   .get((req, res) => {
     routineSchema.findById(
@@ -56,14 +56,14 @@ router
           console.log(error);
         } else {
           res.json(data);
-          console.log("Routine updated successfully !");
+          console.log("Fridge updated successfully !");
         }
       }
     );
   });
   
 // Delete Student
-router.delete("/delete-routine/:id", 
+router.delete("/delete-fridge/:id", 
 (req, res, next) => {
     routineSchema.findByIdAndRemove(
       req.params.id, (error, data) => {

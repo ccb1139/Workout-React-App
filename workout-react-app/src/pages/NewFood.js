@@ -7,9 +7,9 @@ function NewFood() {
 
 
     const onSubmit = (foodName, expirationDate) => {
-        axios.post('http://127.0.0.1:4000/routines/create-routine', { foodName, expirationDate }).then((res) => {
+        axios.post('http://127.0.0.1:4000/foods/create-fridge', { foodName, expirationDate }).then((res) => {
             if (res.status === 200)
-                alert('Student successfully created')
+                console.log(res.data); 
             else
                 Promise.reject()
         }).catch(err => alert('Something went wrong'))

@@ -5,7 +5,7 @@ let bodyParser = require('body-parser');
 let dbConfig = require('./database/db');
   
 // Express Route
-const routineRoute = require('../backend/routes/routine.route')
+const fridgeRoute = require('./routes/fridge.route')
   
 // Configure mongoDB Database
 // mongoose.set('useNewUrlParser', true);
@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cors());
-app.use('/routines', routineRoute)
+app.use('/foods', fridgeRoute)
   
   
 // PORT

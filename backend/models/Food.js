@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let routineSchema = new Schema({
+let fridgeSchema = new Schema({
     foodName: {
         type: String
     },
     expirationDate: {
-        type: Array
+        type: String
     },
 
 }, {
-    collection: 'routines'
+    collection: 'foods'
 })
 
-module.exports = mongoose.model('Routine', routineSchema)
+module.exports = mongoose.model('Fridge', fridgeSchema)
