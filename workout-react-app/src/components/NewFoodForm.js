@@ -10,7 +10,7 @@ function RoutineForm({children, onSubmit }) {
         <div className='new-rt-form d-flex flex-column col-6 justify-content-center align-items-center border'>
             <h1>{children}</h1>
             <Form>
-                <FormGroup controlId="formBasicEmail">
+                <FormGroup controlId="formBasicEmail" className='d-flex'>
                     <FormLabel>Food Name</FormLabel>
                     <FormControl type="text" placeholder="Enter Food Name" value={foodName} onChange={(event) => {setFoodName(event.target.value)}}/>
                     <FormLabel>Expiration date</FormLabel>

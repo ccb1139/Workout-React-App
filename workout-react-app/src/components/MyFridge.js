@@ -35,6 +35,7 @@ function MyFridge() {
                     </div> 
                 ))}
                 <button className="btn btn-primary" onClick={editFood}>Edit Food</button>
+                
                 <div>{editFoods ? "on" : "off"}</div>
                     
             </div>

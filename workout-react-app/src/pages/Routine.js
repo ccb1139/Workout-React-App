@@ -1,5 +1,6 @@
 import React from "react";
 import MyFridge from "../components/MyFridge";
+import NewFood from "../pages/NewFood";
 import { Container, Row, Col } from 'react-bootstrap';
 import { useState, useEffect } from "react";
 
@@ -18,6 +19,7 @@ function Fridge() {
     <div className="container">
       <div className="d-flex flex-wrap flex-md-nowrap align-items-center justify-content-center">
         <MyFridge></MyFridge>
+        <NewFood></NewFood>
       </div>
     </div>
   );
