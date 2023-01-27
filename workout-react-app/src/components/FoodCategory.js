@@ -4,46 +4,38 @@ import FoodTile from './FoodTile'
 
 function FoodCategory({ Name, Items, selected, setSelected }) {
 
-    function onSelect(index) {
-        console.log(index);
-        console.log(Items[index]);
+    function onSelect(index, _category, name) {
         const foodItm = {
-            name: Items[index],
-            category: Name,
-            _index: index
+            name: Items[index]["name"], category: Name, _index: index, selected: true,
         }
-        //we need to check if the food is already selected
-        //if it is, we need to remove it from the selected array
-        //if it isn't, we need to add it to the selected array
-        //we can do this by checking if the food is already in the selected array
-        //if it is, we can remove it
-        //if it isn't, we can add it
-        console.log(selected)
+
+        var found = false;
         for (let i = 0; i < selected.length; i++) {
-            if (selected[i]["category"] === Name && selected[i]["_index"] === index && selected[i]["name"] === Items[index]) {
-                setSelected(selected.filter((item, i) => i !== index));
-                return;
+            if (selected[i]["category"] === Name && selected[i]["_index"] === index && selected[i]["name"] === Items[index]["name"]) {
+                console.log("ITS ALREADY IN HERE BOZO");
+                setSelected(selected.filter(item => JSON.stringify(item) !== JSON.stringify(foodItm)));
+                // myArray = myArray.filter(item => JSON.stringify(item) !== JSON.stringify(objectToRemove));
+                found = true;
+                break; 
             }
         }
-        setSelected([...selected, foodItm]);
 
-        // if (selected.includes(foodItm)) {
-        //     setSelected(selected.filter((foodItm, i) => i !== index));
-        // }
-        // else{
-            
-        // }
+
         // setSelected([...selected, foodItm]);
-    }
-
-    function checkCurSelected(){
-        
-        for (let i = 0; i < selected.length; i++) {
-            if (selected[i]["category"] === Name) {
-                return true;
+        //Update the foodCategories array to set selected to true
+        for(let i = 0; i < Items.length; i++){
+            if(Items[i]["name"] === name){
+                if (!found){
+                    Items[i]["selected"] = true;
+                } else {
+                    Items[i]["selected"] = false;
+                    return;
+                }
+                // Items[i]["selected"] = !Items[i]["selected"];
             }
         }
-        return false;
+
+        setSelected([...selected, foodItm]);
     }
 
     // console.log(selected);
@@ -52,7 +44,7 @@ function FoodCategory({ Name, Items, selected, setSelected }) {
             <h1>{Name}</h1>
             <div className='d-flex'>
                 {Items?.map((item, index) => (
-                    <FoodTile key={index} _id={index} onSelect={onSelect} curSelected={checkCurSelected}>{item}</FoodTile>
+                    <FoodTile key={index} _id={item["_index"]} onSelect={onSelect} curSelected={item["selected"]} category={item["category"]}>{item["name"]}</FoodTile>
                 ))}
 
             </div>

@@ -4,8 +4,7 @@ import axios from 'axios';
 import RoutineForm from '../components/NewFoodForm';
 import NewFoodMenu from '../components/NewFoodMenu';
 
-function NewFood() {
-
+function NewFood({fridge, setFrigde}) {
 
     const onSubmit = (foodName, expirationDate) => {
         axios.post('http://127.0.0.1:4000/foods/create-fridge', { foodName, expirationDate }).then((res) => {
@@ -17,14 +16,14 @@ function NewFood() {
     }
 
 
-    function _onSubmit(t1, t2) {
-        console.log(t1, t2)
-    }
+    // function _onSubmit() {
+    //     console.log(t1, t2)
+    // }
 
     return (
         <div className='d-flex justify-content-center align-items-center'>
             {/* <RoutineForm onSubmit={onSubmit} >New Food</RoutineForm> */}
-            <NewFoodMenu onSubmit={_onSubmit} ></NewFoodMenu>
+            <NewFoodMenu fridge={fridge} setFrigde={setFrigde}></NewFoodMenu>
 
         </div>
     )

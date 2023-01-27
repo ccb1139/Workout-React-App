@@ -3,26 +3,36 @@ import MyFridge from "../components/MyFridge";
 import NewFood from "../pages/NewFood";
 import { Container, Row, Col } from 'react-bootstrap';
 import { useState, useEffect } from "react";
+import axios from 'axios';
+
 
 
 
 
 function Fridge() {
-  const [routines, setRoutines] = useState();
-  const [data, setData] = React.useState(null);
+    const [fridge, setFridge] = useState([]);
 
+    useEffect(() => {
+        axios.get("http://localhost:4000/foods/").then(({ data }) => {
+            setFridge(data);
+            console.log(data);
+        })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
 
-  const testrt = ["Chest flys", "Bench Press", "Pull Ups"]
-  // setRoutines(["Chest flys", "Bench Press", "Pull Ups"]);
+    const testrt = ["Chest flys", "Bench Press", "Pull Ups"]
+    // setRoutines(["Chest flys", "Bench Press", "Pull Ups"]);
 
-  return (
-    <div className="container">
-      <div className="d-flex flex-wrap flex-md-nowrap align-items-center justify-content-center">
-        <MyFridge></MyFridge>
-        <NewFood></NewFood>
-      </div>
-    </div>
-  );
+    return (
+        <div className="container">
+            <div className="d-flex flex-wrap flex-md-nowrap align-items-center justify-content-center">
+                <MyFridge foods={fridge} setFoods={setFridge}></MyFridge>
+                <NewFood fridge={fridge} setFrigde={setFridge}></NewFood>
+            </div>
+        </div>
+    );
 }
 
 export default Fridge;

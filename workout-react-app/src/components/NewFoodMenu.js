@@ -3,35 +3,14 @@ import { useState, useEffect } from "react";
 import FoodCategory from './FoodCategory'
 import SelectedFoods from './SelectedFoods'
 import axios from 'axios';
+import DebugMenu from './DebugMenu';
 
-function NewFoodMenu({ _onSubmit }) {
+
+function NewFoodMenu({fridge, setFrigde}) {
     const [selected, setSelected] = useState([]);
     const [foodCategories, setFoodCategories] = useState([]);
-    
-    // For testing purposes
-    const categoryPopulate = (foodName, expirationDate) => {
-        const foodCat = {
-            foodCategoryName: "Fruits",
-            foods: ["Apple", "Banana", "Orange"]
-        }
-        const foodCat2 = {
-            foodCategoryName: "Snacks",
-            foods: ["Cheetos", "Lays", "Pretzels"]
-        }
-        axios.post('http://127.0.0.1:4000/groceries/create-grocery-category', foodCat).then((res) => {
-            if (res.status === 200)
-                console.log(res.data); 
-            else
-                Promise.reject()
-        }).catch(err => alert('Something went wrong'))
 
-        axios.post('http://127.0.0.1:4000/groceries/create-grocery-category', foodCat2).then((res) => {
-            if (res.status === 200)
-                console.log(res.data); 
-            else
-                Promise.reject()
-        }).catch(err => alert('Something went wrong'))
-    }
+    
 
     useEffect(() => {
         axios.get("http://localhost:4000/groceries/").then(({ data }) => {
@@ -44,29 +23,40 @@ function NewFoodMenu({ _onSubmit }) {
             });
     }, []);
 
-    // console.log(foodCategories)
+    useEffect(() => {
+        //Iterate through selected
+        for (const item of selected) {
+            for (const catItm of foodCategories) {
+                if ((catItm["foodCategoryName"] == item["category"])) {
+                    catItm.foods[item["_index"]].selected = true;
+                }
+
+            }
+        }
+
+    }, [selected]);
+
+    function addToFridge(foods){
+        console.log("fridge", fridge)
+        console.log("foods", foods)
+        var convertedFoods = {};
+        // 
+
+        setFrigde([...fridge, ...foods])
+    }
+
+
     return (
         <div className='col border'>
-
-
-            <div className='d-flex flex-column'>
+            <div className='d-flex flex-column px-3 py-1'>
                 {foodCategories.map((item, index) => (
                     <FoodCategory key={index} Name={item.foodCategoryName} Items={item.foods} selected={selected} setSelected={setSelected}></FoodCategory>
                 ))}
             </div>
-            <SelectedFoods selected={selected} setSelected={setSelected}></SelectedFoods>
-            {/* {selected.map((item, index) => (
-                <div key={index}>{item["name"]}</div>
-            ))} */}
+            <SelectedFoods setFridge={addToFridge} selected={selected} setSelected={setSelected} foodCategories={foodCategories} setFoodCategories={setFoodCategories}></SelectedFoods>
+            
 
-            <div className='container fixed-bottom border m-20'>
-                <h3>For Debug:</h3>
-                <p>Selected arr:</p>
-                {selected.map((item, index) => (
-                    <div key={index}>{"name:" + item["name"] + "    category:" + item["category"]+ "    _index:" +item["_index"]}</div>
-                ))}
-                <button onClick={categoryPopulate}>Populate categories (debug)</button>
-            </div>
+            <DebugMenu selected={selected}></DebugMenu>
         </div>
     )
 }
