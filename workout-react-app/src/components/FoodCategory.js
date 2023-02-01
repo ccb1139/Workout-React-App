@@ -12,7 +12,7 @@ function FoodCategory({ Name, Items, selected, setSelected }) {
         var found = false;
         for (let i = 0; i < selected.length; i++) {
             if (selected[i]["category"] === Name && selected[i]["_index"] === index && selected[i]["name"] === Items[index]["name"]) {
-                console.log("ITS ALREADY IN HERE BOZO");
+                // console.log("ITS ALREADY IN HERE BOZO");
                 setSelected(selected.filter(item => JSON.stringify(item) !== JSON.stringify(foodItm)));
                 // myArray = myArray.filter(item => JSON.stringify(item) !== JSON.stringify(objectToRemove));
                 found = true;

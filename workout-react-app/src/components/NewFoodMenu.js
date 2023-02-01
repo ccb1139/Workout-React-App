@@ -14,9 +14,9 @@ function NewFoodMenu({fridge, setFrigde}) {
 
     useEffect(() => {
         axios.get("http://localhost:4000/groceries/").then(({ data }) => {
-            console.log(selected)
+            // console.log(selected)
             setFoodCategories(data);
-            console.log(data);
+            // console.log(data);
         })
             .catch((error) => {
                 console.log(error);
@@ -36,13 +36,35 @@ function NewFoodMenu({fridge, setFrigde}) {
 
     }, [selected]);
 
-    function addToFridge(foods){
-        console.log("fridge", fridge)
-        console.log("foods", foods)
-        var convertedFoods = {};
-        // 
+    function sendToFrigeServer(foodName, expirationDate) {
+        axios.post('http://127.0.0.1:4000/foods/create-fridge', { foodName, expirationDate }).then((res) => {
+            if (res.status === 200){
+                // console.log(res.data); 
+                setFrigde([...fridge, res.data])
+            }
+            else
+                Promise.reject()
+        }).catch(err => alert('Something went wrong'))
+    }
 
-        setFrigde([...fridge, ...foods])
+
+    function addToFridge(foods){
+        // console.log("fridge", fridge)
+        // console.log("foods", foods)
+        var convertedFoods = [];
+        for (const food of foods) {
+            // console.log("food", food)
+            const tmp = {
+                "foodName": food["name"],
+                "expirationDate": "0000-00-00",
+            }
+            convertedFoods.push(tmp);
+        }
+        // console.log("convertedFoods", convertedFoods)
+        setFrigde([...fridge, ...convertedFoods])
+        for (const food of convertedFoods) {
+            sendToFrigeServer(food["foodName"], food["expirationDate"]);
+        }
     }
 
 
@@ -56,7 +78,7 @@ function NewFoodMenu({fridge, setFrigde}) {
             <SelectedFoods setFridge={addToFridge} selected={selected} setSelected={setSelected} foodCategories={foodCategories} setFoodCategories={setFoodCategories}></SelectedFoods>
             
 
-            <DebugMenu selected={selected}></DebugMenu>
+            <DebugMenu selected={selected} ></DebugMenu>
         </div>
     )
 }

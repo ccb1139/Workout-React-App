@@ -2,20 +2,21 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Table } from "react-bootstrap";
 import FridgeItem from "./FridgeItem";
+import '../css/MyFridge.css'
 
 
 function MyFridge({foods, setFoods}) {
+    const [foodToRemove, setFoodToRemove] = useState("");
 
-    const [editFoods, setEditFoods] = useState(false);
+    useEffect(() => {
+        console.log(foodToRemove);
+        setFoods(foods.filter(food => food._id !== foodToRemove));
+    }, [foodToRemove])
 
-    
-
-    // console.log(foods);
-    //write code to invert the editFoods state when the edit button is clicked
-    const editFood = () => {
-        setEditFoods(!editFoods);
-        console.log(editFoods);
-    }
+    useEffect(() => {
+        //Map through the foods array and return a fridge item for each food
+        // console.log(foods);
+    }, [foods])
 
 
 
@@ -24,12 +25,9 @@ function MyFridge({foods, setFoods}) {
             <div className="col col-8">
                 {foods?.map((food, index) => (
                     <div className="row" key={food._id+"oDiv"}>
-                        <FridgeItem key={food._id} foodName={food.foodName} expirationDate={food.expirationDate} _id={food._id} _editFoods={editFoods}></FridgeItem>
+                        <FridgeItem key={food._id} foodName={food.foodName} expirationDate={food.expirationDate} _id={food._id} sendRmvInfoToParent={setFoodToRemove} ></FridgeItem>
                     </div> 
                 ))}
-                {/* <button className="btn btn-primary" onClick={editFood}>Edit Food</button> */}
-                
-                {/* <div>{editFoods ? "on" : "off"}</div> */}
                     
             </div>
         </div>

@@ -2,9 +2,9 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import FoodTile from './FoodTile'
 
-function SelectedFoods({ selected, setSelected, foodCategories, setFoodCategories, setFridge}) {
+function SelectedFoods({ selected, setSelected, foodCategories, setFoodCategories, setFridge }) {
     function onRemove(index, _category, name) {
-        
+
         setSelected(selected.filter((item, i) => i !== index));
         //we need to remove the selected property from the foodCategories array
         for (let i = 0; i < foodCategories.length; i++) {
@@ -13,11 +13,24 @@ function SelectedFoods({ selected, setSelected, foodCategories, setFoodCategorie
                 setFoodCategories([...foodCategories.slice(0, i), { ...foodCategories[i], foods: [...foodCategories[i]["foods"].slice(0, index), { ...foodCategories[i]["foods"][index], selected: false }, ...foodCategories[i]["foods"].slice(index + 1)] }, ...foodCategories.slice(i + 1)]);
                 return;
             }
-        }        
+        }
     }
 
-    function sendFood(){
+    
+    function sendFood() {
         setFridge(selected);
+        setSelected([]);
+        let _foodCategories = [...foodCategories];
+        foodCategories.forEach(category => {
+            category.foods = category.foods.map(food => {
+                food.selected = false;
+                return food;
+            });
+        });
+
+
+
+        // console.log(_foodCategories)
     }
 
     return (
