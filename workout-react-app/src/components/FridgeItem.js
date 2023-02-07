@@ -29,7 +29,7 @@ function FridgeItem({ foodName, expirationDate, _id, sendRmvInfoToParent }) {
         <div className='border row justify-content-between' >
             <input type="text" defaultValue={foodName} className="fridge_input col"></input>
             <input type="date" 
-            defaultValue ={new Date().toISOString().subStr(0, 10)} 
+            defaultValue ="0000-00-00" 
             className='fridge_exp_date col ' ></input>
             {/* <input type="text" defaultValue={expirationDate} className="fridge_input col"></input> */}
             <button onClick={deleteFood} className='border col' >Delete</button>
