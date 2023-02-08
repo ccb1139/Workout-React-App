@@ -36,8 +36,8 @@ function NewFoodMenu({fridge, setFrigde}) {
 
     }, [selected]);
 
-    function sendToFrigeServer(foodName, expirationDate) {
-        axios.post('http://127.0.0.1:4000/foods/create-fridge', { foodName, expirationDate }).then((res) => {
+    function sendToFrigeServer(foodName, expirationDate, foodCategoryName) {
+        axios.post('http://127.0.0.1:4000/foods/create-fridge', { foodName, expirationDate, foodCategoryName }).then((res) => {
             if (res.status === 200){
                 // console.log(res.data); 
                 setFrigde([...fridge, res.data])
@@ -49,21 +49,32 @@ function NewFoodMenu({fridge, setFrigde}) {
 
 
     function addToFridge(foods){
-        // console.log("fridge", fridge)
-        // console.log("foods", foods)
+
+        // For debugging
+        const currentDate = new Date();
+        const twoWeeksFromNow = new Date(currentDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+        const randomTimestamp = currentDate.getTime() + Math.random() * (twoWeeksFromNow.getTime() - currentDate.getTime());
+        const randomDate = new Date(randomTimestamp);
+        const formattedRandomDate = randomDate.toISOString().substring(0, 10);
+        console.log(formattedRandomDate)
+
+
+
+
         var convertedFoods = [];
         for (const food of foods) {
             // console.log("food", food)
             const tmp = {
                 "foodName": food["name"],
-                "expirationDate": "0000-00-00",
+                "expirationDate": formattedRandomDate,
+                "foodCategoryName": food["category"]
             }
             convertedFoods.push(tmp);
         }
         // console.log("convertedFoods", convertedFoods)
         setFrigde([...fridge, ...convertedFoods])
         for (const food of convertedFoods) {
-            sendToFrigeServer(food["foodName"], food["expirationDate"]);
+            sendToFrigeServer(food["foodName"], food["expirationDate"], food["foodCategoryName"]);
         }
     }
 
@@ -78,7 +89,7 @@ function NewFoodMenu({fridge, setFrigde}) {
             <SelectedFoods setFridge={addToFridge} selected={selected} setSelected={setSelected} foodCategories={foodCategories} setFoodCategories={setFoodCategories}></SelectedFoods>
             
 
-            <DebugMenu selected={selected} ></DebugMenu>
+            {/* <DebugMenu selected={selected} ></DebugMenu> */}
         </div>
     )
 }

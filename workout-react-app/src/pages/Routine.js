@@ -22,8 +22,6 @@ function Fridge() {
             });
     }, []);
 
-    const testrt = ["Chest flys", "Bench Press", "Pull Ups"]
-    // setRoutines(["Chest flys", "Bench Press", "Pull Ups"]);
 
     return (
         <div className="container">

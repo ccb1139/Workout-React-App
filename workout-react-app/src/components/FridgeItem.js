@@ -24,15 +24,15 @@ function FridgeItem({ foodName, expirationDate, _id, sendRmvInfoToParent }) {
     };
 
     
-    console.log(expirationDate)
+    // console.log(expirationDate)
     return (
-        <div className='border row justify-content-between' >
-            <input type="text" defaultValue={foodName} className="fridge_input col"></input>
+        <div className='border row justify-content-start' >
+            <input type="text" defaultValue={foodName} className="fridge_input col-4 p-2"></input>
             <input type="date" 
-            defaultValue ="0000-00-00" 
-            className='fridge_exp_date col ' ></input>
+            defaultValue ={expirationDate}
+            className='fridge_exp_date col-4 p-2' ></input>
             {/* <input type="text" defaultValue={expirationDate} className="fridge_input col"></input> */}
-            <button onClick={deleteFood} className='border col' >Delete</button>
+            <button onClick={deleteFood} className='border col-1 rounded-circle ms-auto p-2' >X</button>
         </div>
     )
 }

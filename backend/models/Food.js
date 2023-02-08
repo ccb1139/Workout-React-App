@@ -8,6 +8,9 @@ let fridgeSchema = new Schema({
     expirationDate: {
         type: String
     },
+    foodCategoryName: {
+        type: String
+    }
 
 }, {
     collection: 'foods'
