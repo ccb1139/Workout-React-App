@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import FoodTile from './FoodTile'
+import FoodTile from './FoodMenuCmp/FoodTile'
 
 function SelectedFoods({ selected, setSelected, foodCategories, setFoodCategories, setFridge }) {
     function onRemove(index, _category, name) {

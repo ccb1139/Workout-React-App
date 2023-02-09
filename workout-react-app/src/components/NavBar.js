@@ -13,10 +13,10 @@ function NavBar() {
           <Link to="/" className="nav-link">Home</Link>
         </NavItem>
         <NavItem>
-          <Link to="/routine" className="nav-link">Routine</Link>
+          <Link to="/fridge" className="nav-link">My Fridge</Link>
         </NavItem>
         <NavItem>
-          <Link to="/newroutine" className="nav-link">New Routine</Link>
+          <Link to="/recipes" className="nav-link">Recipes</Link>
         </NavItem>
       </Nav>
     </Navbar.Collapse>

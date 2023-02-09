@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import FoodCategory from './FoodCategory'
-import SelectedFoods from './SelectedFoods'
+import SelectedFoods from '../SelectedFoods'
 import axios from 'axios';
-import DebugMenu from './DebugMenu';
+import DebugMenu from '../DebugMenu';
 
 
 function NewFoodMenu({fridge, setFrigde}) {
@@ -80,16 +80,18 @@ function NewFoodMenu({fridge, setFrigde}) {
 
 
     return (
-        <div className='col border'>
-            <div className='d-flex flex-column px-3 py-1'>
-                {foodCategories.map((item, index) => (
-                    <FoodCategory key={index} Name={item.foodCategoryName} Items={item.foods} selected={selected} setSelected={setSelected}></FoodCategory>
-                ))}
-            </div>
-            <SelectedFoods setFridge={addToFridge} selected={selected} setSelected={setSelected} foodCategories={foodCategories} setFoodCategories={setFoodCategories}></SelectedFoods>
-            
+        <div className='d-flex justify-content-center align-items-center'>
+            <div className='col border '>
+                <div className='d-flex flex-column px-3 py-1'>
+                    {foodCategories.map((item, index) => (
+                        <FoodCategory key={index} Name={item.foodCategoryName} Items={item.foods} selected={selected} setSelected={setSelected}></FoodCategory>
+                    ))}
+                </div>
+                <SelectedFoods setFridge={addToFridge} selected={selected} setSelected={setSelected} foodCategories={foodCategories} setFoodCategories={setFoodCategories}></SelectedFoods>
+                
 
-            {/* <DebugMenu selected={selected} ></DebugMenu> */}
+                {/* <DebugMenu selected={selected} ></DebugMenu> */}
+            </div>
         </div>
     )
 }

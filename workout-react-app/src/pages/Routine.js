@@ -1,6 +1,6 @@
 import React from "react";
-import MyFridge from "../components/MyFridge";
-import NewFood from "../pages/NewFood";
+import MyFridge from "../components/FridgeCmp/MyFridge";
+import NewFoodMenu from "../components/FoodMenuCmp/NewFoodMenu";
 import { Container, Row, Col } from 'react-bootstrap';
 import { useState, useEffect } from "react";
 import axios from 'axios';
@@ -22,12 +22,16 @@ function Fridge() {
             });
     }, []);
 
+    function sortFoods(sortType){
+        console.log(sortType);
+        
+    }
 
     return (
         <div className="container">
             <div className="d-flex flex-wrap flex-md-nowrap align-items-center justify-content-center">
                 <MyFridge foods={fridge} setFoods={setFridge}></MyFridge>
-                <NewFood fridge={fridge} setFrigde={setFridge}></NewFood>
+                <NewFoodMenu fridge={fridge} setFrigde={setFridge}></NewFoodMenu>
             </div>
         </div>
     );

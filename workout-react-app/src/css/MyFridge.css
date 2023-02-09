@@ -4,3 +4,6 @@
 .fridge_exp_date{
     border: none;
 }
+.ag-header-cell-label{
+    justify-content: center;
+}

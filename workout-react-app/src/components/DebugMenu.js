@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import FoodCategory from './FoodCategory'
+import FoodCategory from './FoodMenuCmp/FoodCategory'
 import SelectedFoods from './SelectedFoods'
 import axios from 'axios';
 
