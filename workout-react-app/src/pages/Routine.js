@@ -30,7 +30,7 @@ function Fridge() {
     return (
         <div className="container">
             <div className="d-flex flex-wrap flex-md-nowrap align-items-center justify-content-center">
-                <MyFridge foods={fridge} setFoods={setFridge}></MyFridge>
+                <MyFridge fridge={fridge} setFridge={setFridge}></MyFridge>
                 <NewFoodMenu fridge={fridge} setFrigde={setFridge}></NewFoodMenu>
             </div>
         </div>

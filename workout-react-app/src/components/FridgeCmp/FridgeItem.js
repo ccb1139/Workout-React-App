@@ -68,7 +68,7 @@ function FridgeItem({ foodName, expirationDate, foodCategoryName, _id, sendRmvIn
 
   // console.log(expirationDate)
   return (
-    <div className="border row justify-content-start">
+    <div className="border row ">
       <input
         type="text"
         defaultValue={foodName}
