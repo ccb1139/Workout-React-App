@@ -2,12 +2,29 @@ import React, { useState, useEffect } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
+import FridgeSearchBar from "./FridgeSearchBar";
 
 function FridgeHeader({ fridge, setFridge, setView }) {
   const [refereceFridge, setReferenceFridge] = useState([]);
   const [viewType, setViewType] = useState("1");
   const [sortType, setSortType] = useState("0");
+  const [search, setSearch] = useState("");
   const today = new Date();
+
+  useEffect(() => {
+    if (refereceFridge.length === 0) {
+      setReferenceFridge([...fridge]);
+    }
+
+    var foundFoods = [];
+    setFridge([...refereceFridge]);
+    refereceFridge.find((food) => {
+      if (food.foodName.toLowerCase().includes(search.toLowerCase())) {
+        foundFoods.push(food)
+      }
+    });
+    setFridge(foundFoods);
+  }, [search]);
 
   useEffect(() => {
     // console.log(viewType)
@@ -55,7 +72,7 @@ function FridgeHeader({ fridge, setFridge, setView }) {
       <div className="col-6">
         <div className="d-flex align-items-end flex-column mt-2">
           <div className=" col ">
-            <ButtonGroup className="">
+            <ButtonGroup className="pb-1">
               <ToggleButton
                 id="radio1"
                 type="radio"
@@ -85,7 +102,7 @@ function FridgeHeader({ fridge, setFridge, setView }) {
           </div>
           <div className="col">
           <ToggleButton 
-              className=""
+              className="pb-1"
               id="expDateSort"
               type="checkbox"
               variant="secondary"
@@ -97,7 +114,7 @@ function FridgeHeader({ fridge, setFridge, setView }) {
               Sort By Expiration Date
             </ToggleButton>
           </div>
- 
+          <FridgeSearchBar search={search} setSearch={setSearch} />
 
           
         </div>

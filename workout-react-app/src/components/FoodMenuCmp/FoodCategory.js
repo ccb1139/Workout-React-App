@@ -1,6 +1,10 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import FoodTile from './FoodTile'
+import Button from "react-bootstrap/Button";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
+
 
 function FoodCategory({ Name, Items, selected, setSelected }) {
 
@@ -38,10 +42,27 @@ function FoodCategory({ Name, Items, selected, setSelected }) {
         setSelected([...selected, foodItm]);
     }
 
+    const popover = (
+        <Popover id="popover-basic">
+          <Popover.Header as="h3">Popover right</Popover.Header>
+          <Popover.Body>
+            And here's some <strong>amazing</strong> content. It's very engaging.
+            right?
+          </Popover.Body>
+        </Popover>
+      );
+
     // console.log(selected);
     return (
         <div className='border'>
-            <h1>{Name}</h1>
+            <div className='d-flex'>
+                <h1>{Name}</h1>
+                <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+                    <Button size='sm' className='my-3 mx-1 btn btn-outline'>+</Button>
+                </OverlayTrigger>
+                
+            </div>
+            
             <div className='d-flex'>
                 {Items?.map((item, index) => (
                     <FoodTile key={index} _id={item["_index"]} onSelect={onSelect} curSelected={item["selected"]} category={item["category"]}>{item["name"]}</FoodTile>

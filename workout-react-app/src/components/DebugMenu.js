@@ -35,7 +35,7 @@ function DebugMenu({selected}) {
             foods: [
                 {
                     name: "Cheetos",
-                    category: "Snacks",
+                    category: "Snacks", 
                     _index: 0,
                     selected: false,
                 },

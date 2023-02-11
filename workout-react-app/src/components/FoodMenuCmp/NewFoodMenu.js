@@ -38,6 +38,17 @@ function NewFoodMenu({fridge, setFrigde, foodCategories, setFoodCategories}) {
 
     function addToFridge(foods){
 
+        function generateRandomString() {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charactersLength = characters.length;
+            for (let i = 0; i < 24; i++) {
+              result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+          }
+
+
         // For debugging
         const currentDate = new Date();
         const twoWeeksFromNow = new Date(currentDate.getTime() + 14 * 24 * 60 * 60 * 1000);
@@ -51,15 +62,20 @@ function NewFoodMenu({fridge, setFrigde, foodCategories, setFoodCategories}) {
 
         var convertedFoods = [];
         for (const food of foods) {
-            // console.log("food", food)
+            
+            
+            var tmpId = generateRandomString();
             const tmp = {
                 "foodName": food["name"],
                 "expirationDate": formattedRandomDate,
-                "foodCategoryName": food["category"]
+                "foodCategoryName": food["category"],
+                "_id": {tmpId},
             }
             convertedFoods.push(tmp);
+            // setFrigde([...fridge, tmp])
         }
         // console.log("convertedFoods", convertedFoods)
+        var tmpWholeFridge = [...fridge, ...convertedFoods];
         setFrigde([...fridge, ...convertedFoods])
         for (const food of convertedFoods) {
             sendToFrigeServer(food["foodName"], food["expirationDate"], food["foodCategoryName"]);
