@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import CloseButton from 'react-bootstrap/CloseButton';
 import "../../css/MyFridge.css";
 
-function FridgeItem({ foodName, expirationDate, foodCategoryName, _id, sendRmvInfoToParent }) {
+function FridgeItem({ _className, foodName, expirationDate, foodCategoryName, _id, sendRmvInfoToParent }) {
+  const [closeToExpBorder , setCloseToExpBorder] = useState("border border-3 border-danger");
+  const [daysTillExp, setDaysTillExp] = useState("0");
+
+  useEffect(() => {
+    const today = new Date();
+    const expDate = new Date(expirationDate);
+    const diff = Math.abs(today - expDate);
+    const diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    if(today - expDate >= 0) {
+      setDaysTillExp("EXPIRED");
+      setCloseToExpBorder("border border-danger text-danger");
+    } else {
+      setDaysTillExp(String(diffDays));
+      if (diffDays <= 1) {
+        setCloseToExpBorder("border border-danger text-danger");
+      } else if (diffDays <= 3) {
+        setCloseToExpBorder("border border-warning");
+      } else {
+        setCloseToExpBorder("");
+      }
+    }
+    
+    
+  }, []);
+
   const deleteFood = () => {
     sendRmvInfoToParent(_id);
     axios
@@ -68,26 +94,23 @@ function FridgeItem({ foodName, expirationDate, foodCategoryName, _id, sendRmvIn
 
   // console.log(expirationDate)
   return (
-    <div className="border row ">
+    <div className={"border row m-1 " + _className + " " + closeToExpBorder}>
       <input
         type="text"
         defaultValue={foodName}
-        className="fridge_input col-4 p-2"
+        className="fridge_input col-3 p-2"
         onBlur={updateFoodName}
       ></input>
       <input
         type="date"
         defaultValue={expirationDate}
-        className="fridge_exp_date col-4 p-2"
+        className="fridge_exp_date col-3 p-2"
         onBlur={updateFoodExpDate}
       ></input>
+      <div className="col-1"></div>
+      <p className={"col-4" }>{daysTillExp}</p>
       {/* <input type="text" defaultValue={expirationDate} className="fridge_input col"></input> */}
-      <button
-        onClick={deleteFood}
-        className="border col-1 rounded-circle ms-auto p-2"
-      >
-        X
-      </button>
+      <CloseButton onClick={deleteFood}  className="border col-1 ms-auto p-2 mt-1 mx-1" />
     </div>
   );
 }

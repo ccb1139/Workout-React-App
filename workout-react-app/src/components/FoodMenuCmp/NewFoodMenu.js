@@ -6,22 +6,10 @@ import axios from 'axios';
 import DebugMenu from '../DebugMenu';
 
 
-function NewFoodMenu({fridge, setFrigde}) {
+
+function NewFoodMenu({fridge, setFrigde, foodCategories, setFoodCategories}) {
     const [selected, setSelected] = useState([]);
-    const [foodCategories, setFoodCategories] = useState([]);
-
     
-
-    useEffect(() => {
-        axios.get("http://localhost:4000/groceries/").then(({ data }) => {
-            // console.log(selected)
-            setFoodCategories(data);
-            // console.log(data);
-        })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
 
     useEffect(() => {
         //Iterate through selected

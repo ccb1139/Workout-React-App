@@ -7,3 +7,8 @@
 .ag-header-cell-label{
     justify-content: center;
 }
+.fridgeItmHeader{
+
+    font-weight: bold;
+    outline: auto;
+}
