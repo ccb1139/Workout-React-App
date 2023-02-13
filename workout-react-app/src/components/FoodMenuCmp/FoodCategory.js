@@ -79,7 +79,7 @@ function FoodCategory({ Name, Items, addNewFoodInCat, selected, setSelected, ind
                 </Accordion.Collapse>
                 
             </Accordion>
-            <Card.Body className='d-flex'>
+            <Card.Body className='d-flex flex-wrap'>
                 {Items?.map((item, index) => (
                     <FoodTile key={index} _id={item["_index"]} onSelect={onSelect} curSelected={item["selected"]} category={item["category"]}>{item["name"]}</FoodTile>
                 ))}

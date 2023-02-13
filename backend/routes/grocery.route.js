@@ -56,7 +56,8 @@ router
           console.log(error);
         } else {
           res.json(data);
-          console.log("Fridge updated successfully !");
+          console.log(data);
+          console.log("Grocery updated successfully !");
         }
       }
     );

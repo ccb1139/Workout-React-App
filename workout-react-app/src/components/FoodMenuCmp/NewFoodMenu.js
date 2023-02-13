@@ -26,6 +26,7 @@ function NewFoodMenu({fridge, setFrigde, foodCategories, setFoodCategories}) {
 
     useEffect(() => {
         console.log("FoodCategories: ", foodCategories);
+        
     }, [foodCategories]);
 
     function sendToFrigeServer(foodName, expirationDate, foodCategoryName) {
@@ -94,8 +95,23 @@ function NewFoodMenu({fridge, setFrigde, foodCategories, setFoodCategories}) {
         tmp.foods.push(food)
         console.log(tmp);
         setFoodCategories([...foodCategories.splice(category, 1, tmp), ...foodCategories.slice(category + 1)])
+        sendNewGrocCategory(tmp, tmp._id);
 
     }
+
+    function sendNewGrocCategory(newCat, _id) {
+        axios.put("http://localhost:4000/groceries//update-grocery-category/" + _id, newCat)
+        .then((res) => {
+            if (res.status === 200) {
+                console.log("Grocery successfully updated");
+                // window.location.reload();
+
+            } else Promise.reject();
+        })
+        .catch((err) => alert("Something went wrong"));
+        
+    }
+    
 
 
     return (

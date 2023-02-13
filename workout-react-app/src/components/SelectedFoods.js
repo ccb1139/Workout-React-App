@@ -36,7 +36,7 @@ function SelectedFoods({ selected, setSelected, foodCategories, setFoodCategorie
     return (
         <div className='d-flex flex-column px-3 py-1 border'>
             <h1>Selected Foods</h1>
-            <div className='d-flex border'>
+            <div className='d-flex flex-wrap border'>
                 {selected.map((item, index) => (
                     <FoodTile key={index} _id={index} onSelect={onRemove} curSelected={item["selected"]} category={item["category"]}>{item["name"]}</FoodTile>
                 ))}
