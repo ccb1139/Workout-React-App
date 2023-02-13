@@ -4,9 +4,29 @@ import FoodTile from './FoodTile'
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
+import Accordion from 'react-bootstrap/Accordion';
+import { useAccordionButton } from 'react-bootstrap/AccordionButton';
+import Card from 'react-bootstrap/Card';
+import NewFoodForm from './NewFoodForm';
 
 
-function FoodCategory({ Name, Items, selected, setSelected }) {
+function FoodCategory({ Name, Items, addNewFoodInCat, selected, setSelected, ind }) {
+
+    function CustomToggle({ children, eventKey }) {
+        const decoratedOnClick = useAccordionButton(eventKey, () =>
+          console.log('totally custom!'),
+        );
+      
+        return (
+          <button
+            type="button"
+            onClick={decoratedOnClick}
+            className='btn border ms-auto'
+          >
+            {children}
+          </button>
+        );
+      }
 
     function onSelect(index, _category, name) {
         const foodItm = {
@@ -42,36 +62,30 @@ function FoodCategory({ Name, Items, selected, setSelected }) {
         setSelected([...selected, foodItm]);
     }
 
-    const popover = (
-        <Popover id="popover-basic">
-          <Popover.Header as="h3">Popover right</Popover.Header>
-          <Popover.Body>
-            And here's some <strong>amazing</strong> content. It's very engaging.
-            right?
-          </Popover.Body>
-        </Popover>
-      );
+    
+
+    
 
     // console.log(selected);
     return (
-        <div className='border'>
-            <div className='d-flex'>
-                <h1>{Name}</h1>
-                <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-                    <Button size='sm' className='my-3 mx-1 btn btn-outline'>+</Button>
-                </OverlayTrigger>
+        <Card>
+            <Accordion defaultActiveKey="1">
+                <Card.Header className='d-flex'>
+                    <h2>{Name}</h2>
+                    <CustomToggle eventKey="0">+</CustomToggle>    
+                </Card.Header>
+                <Accordion.Collapse eventKey="0">
+                    <NewFoodForm Items={Items} addNewFoodInCat={addNewFoodInCat} ind={ind}></NewFoodForm>
+                </Accordion.Collapse>
                 
-            </div>
-            
-            <div className='d-flex'>
+            </Accordion>
+            <Card.Body className='d-flex'>
                 {Items?.map((item, index) => (
                     <FoodTile key={index} _id={item["_index"]} onSelect={onSelect} curSelected={item["selected"]} category={item["category"]}>{item["name"]}</FoodTile>
                 ))}
+            </Card.Body>
+        </Card>
 
-            </div>
-
-
-        </div>
     )
 }
 

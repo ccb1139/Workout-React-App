@@ -13,7 +13,7 @@ function FoodOffCanvasMenu({fridge, setFridge, foodCategories, setFoodCategories
         <Button variant="primary" onClick={handleShow}>
           Add Foods
         </Button>
-        <Offcanvas show={show} onHide={handleClose} placement="end">
+        <Offcanvas show={show} onHide={handleClose} placement="end" backdrop="static">
             <Offcanvas.Header closeButton>
                 <Offcanvas.Title>Shopping Cart</Offcanvas.Title>
             </Offcanvas.Header>

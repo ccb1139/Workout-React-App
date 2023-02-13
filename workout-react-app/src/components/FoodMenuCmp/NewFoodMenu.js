@@ -24,6 +24,10 @@ function NewFoodMenu({fridge, setFrigde, foodCategories, setFoodCategories}) {
 
     }, [selected]);
 
+    useEffect(() => {
+        console.log("FoodCategories: ", foodCategories);
+    }, [foodCategories]);
+
     function sendToFrigeServer(foodName, expirationDate, foodCategoryName) {
         axios.post('http://127.0.0.1:4000/foods/create-fridge', { foodName, expirationDate, foodCategoryName }).then((res) => {
             if (res.status === 200){
@@ -82,13 +86,24 @@ function NewFoodMenu({fridge, setFrigde, foodCategories, setFoodCategories}) {
         }
     }
 
+    function addNewFoodInCat(food, category){
+        console.log(food);
+        console.log(category);
+        // console.log([foodCategories.slice(category)]);
+        var tmp = foodCategories[category];
+        tmp.foods.push(food)
+        console.log(tmp);
+        setFoodCategories([...foodCategories.splice(category, 1, tmp), ...foodCategories.slice(category + 1)])
+
+    }
+
 
     return (
         <div className='d-flex justify-content-center align-items-center'>
             <div className='col border '>
                 <div className='d-flex flex-column px-3 py-1'>
                     {foodCategories.map((item, index) => (
-                        <FoodCategory key={index} Name={item.foodCategoryName} Items={item.foods} selected={selected} setSelected={setSelected}></FoodCategory>
+                        <FoodCategory key={index} Name={item.foodCategoryName} Items={item.foods} addNewFoodInCat={addNewFoodInCat} ind={index} selected={selected} setSelected={setSelected}></FoodCategory>
                     ))}
                 </div>
                 <SelectedFoods setFridge={addToFridge} selected={selected} setSelected={setSelected} foodCategories={foodCategories} setFoodCategories={setFoodCategories}></SelectedFoods>
