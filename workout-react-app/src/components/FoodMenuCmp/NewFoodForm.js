@@ -22,16 +22,19 @@ function NewFoodForm({Items, addNewFoodInCat, ind}) {
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       handleSubmit(event);
+      setValue("");
     }
+    
   };
 
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="m-1 ">
       <FormControl
         type="text"
         value={value}
         onChange={(event) => setValue(event.target.value)}
+        placeholder="Add a new food"
         onKeyPress={handleKeyPress}
       />
     </Form>

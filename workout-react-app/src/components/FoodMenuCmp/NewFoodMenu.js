@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import FoodCategory from './FoodCategory'
-import SelectedFoods from '../SelectedFoods'
+import SelectedFoods from './SelectedFoods'
 import axios from 'axios';
 import DebugMenu from '../DebugMenu';
 
@@ -94,7 +94,8 @@ function NewFoodMenu({fridge, setFrigde, foodCategories, setFoodCategories}) {
         var tmp = foodCategories[category];
         tmp.foods.push(food)
         console.log(tmp);
-        setFoodCategories([...foodCategories.splice(category, 1, tmp), ...foodCategories.slice(category + 1)])
+    
+        setFoodCategories([...foodCategories.slice(0, category), ...foodCategories.splice(category, 1, tmp), ...foodCategories.slice(category + 1)])
         sendNewGrocCategory(tmp, tmp._id);
 
     }

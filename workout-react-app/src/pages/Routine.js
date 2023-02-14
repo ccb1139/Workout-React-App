@@ -5,6 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import FoodOffCanvasMenu from "../components/FoodMenuCmp/FoodOffCanvasMenu";
+import DebugMenu from "../components/DebugMenu";
 
 function Fridge() {
     const [fridge, setFridge] = useState([]);
@@ -43,6 +44,7 @@ function Fridge() {
                 
                 <FoodOffCanvasMenu foodCategories={foodCategories} setFoodCategories={setFoodCategories} fridge={fridge} setFridge={setFridge}></FoodOffCanvasMenu>
             </div>
+            <DebugMenu fridge={fridge} setFridge={setFridge}></DebugMenu>
         </div>
     );
 }

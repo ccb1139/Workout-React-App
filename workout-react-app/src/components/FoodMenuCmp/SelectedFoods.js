@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import FoodTile from './FoodMenuCmp/FoodTile'
+import FoodTile from './FoodTile'
 
 function SelectedFoods({ selected, setSelected, foodCategories, setFoodCategories, setFridge }) {
     function onRemove(index, _category, name) {
@@ -34,7 +34,7 @@ function SelectedFoods({ selected, setSelected, foodCategories, setFoodCategorie
     }
 
     return (
-        <div className='d-flex flex-column px-3 py-1 border'>
+        <div className='d-flex flex-column px-3 py-1 border mt-auto'>
             <h1>Selected Foods</h1>
             <div className='d-flex flex-wrap border'>
                 {selected.map((item, index) => (

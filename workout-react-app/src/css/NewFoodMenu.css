@@ -1,0 +1,8 @@
+.offcanvas{
+    width: 600px !important;
+}
+.offcanvas-header{
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    justify-content: start !important;
+}
