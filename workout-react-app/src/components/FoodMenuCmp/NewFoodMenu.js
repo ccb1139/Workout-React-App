@@ -112,15 +112,33 @@ function NewFoodMenu({fridge, setFrigde, foodCategories, setFoodCategories}) {
         .catch((err) => alert("Something went wrong"));
         
     }
+
+    function deleteCategory(name, index){
+        var catID = "";
+        for(let i = 0; foodCategories.length > i; i++){
+            if(foodCategories[i].foodCategoryName == name){
+                catID = foodCategories[i]._id;
+            }
+        }
+        console.log(catID);
+        axios.delete("http://localhost:4000/groceries/delete-grocery-category/" + catID)
+        .then((res) => {
+            if (res.status === 200) {
+                console.log("Grocery successfully deleted");
+                // window.location.reload();
+                setFoodCategories([...foodCategories.slice(0, index), ...foodCategories.slice(index + 1)])
+            } else Promise.reject();
+        })
+    }
     
 
 
     return (
         <div className='d-flex justify-content-center align-items-center'>
-            <div className='col border '>
+            <div className='col '>
                 <div className='d-flex flex-column px-3 py-1'>
                     {foodCategories.map((item, index) => (
-                        <FoodCategory key={index} Name={item.foodCategoryName} Items={item.foods} addNewFoodInCat={addNewFoodInCat} ind={index} selected={selected} setSelected={setSelected}></FoodCategory>
+                        <FoodCategory key={index} deleteCategoryFunc={deleteCategory} Name={item.foodCategoryName} Items={item.foods} addNewFoodInCat={addNewFoodInCat} ind={index} selected={selected} setSelected={setSelected}></FoodCategory>
                     ))}
                 </div>
                 <SelectedFoods setFridge={addToFridge} selected={selected} setSelected={setSelected} foodCategories={foodCategories} setFoodCategories={setFoodCategories}></SelectedFoods>
