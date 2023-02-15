@@ -5,6 +5,9 @@ import Button from "react-bootstrap/Button";
 import Collapse from 'react-bootstrap/Collapse';
 import EditCategoriesModal from "./EditCategoriesModal";
 import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import "../../css/NewFoodMenu.css"
 
@@ -16,6 +19,7 @@ function FoodOffCanvasMenu({fridge, setFridge, foodCategories, setFoodCategories
   const handleShow = () => setShow(true);
   const handleEdit = () => setCanEdit(!canEdit);
 
+  
 
 
   return (
@@ -37,10 +41,21 @@ function FoodOffCanvasMenu({fridge, setFridge, foodCategories, setFoodCategories
             </Offcanvas.Header>
             <Collapse in={openAddCategory}>
               <div className="container">
-                <div className="d-flex justify-content-center">
-                    <label className="mx-1">Add Category:</label>
-                    <input placeholder="Add Category"></input>
+                <div className="px-4 justify-content-center">
+                  <Form className="my-2">
+                    <Form.Group as={Row} className="mb-3 row" controlId="exampleForm.ControlInput1">
+                      <Form.Label column  sm="4">Category Name: </Form.Label>
+                      <Col sm="6">
+                        <Form.Control type="text" placeholder="Category Name" />
+                      </Col>
+                      <Col sm="2">
+                        <Button variant="outline-secondary">Add</Button>
+                      </Col>
+                    </Form.Group>
+                    
+                  </Form>
                 </div>
+                
       
               </div>
             </Collapse>
