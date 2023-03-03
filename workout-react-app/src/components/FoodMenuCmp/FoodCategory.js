@@ -102,7 +102,7 @@ function FoodCategory({ Name, Items, addNewFoodInCat, selected, setSelected, ind
                     
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
-                    <NewFoodForm Items={Items} addNewFoodInCat={addNewFoodInCat} ind={ind}></NewFoodForm>
+                    <NewFoodForm Items={Items} addNewFoodInCat={addNewFoodInCat} ind={ind} _category={Name}></NewFoodForm>
                 </Accordion.Collapse>
                 
             </Accordion>

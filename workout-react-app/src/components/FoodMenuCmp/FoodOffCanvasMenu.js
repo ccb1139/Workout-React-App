@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import NewFoodMenu from "./NewFoodMenu";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import axios from 'axios';
 import Button from "react-bootstrap/Button";
 import Collapse from 'react-bootstrap/Collapse';
 import EditCategoriesModal from "./EditCategoriesModal";
@@ -15,18 +16,59 @@ function FoodOffCanvasMenu({fridge, setFridge, foodCategories, setFoodCategories
   const [show, setShow] = useState(false);
   const [canEdit, setCanEdit] = useState(false);
   const [openAddCategory, setOpenAddCategory] = useState(false);
+  const [newCatName, setNewCatName] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleEdit = () => setCanEdit(!canEdit);
+
+  const handleInputChange = (event) => {
+    event.preventDefault();
+    setNewCatName(event.target.value);
+  };
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    sendNewCatTOBackend(newCatName);
+  }
+
+  function generateRandomString() {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < 24; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  function sendNewCatTOBackend() {
+    
+    const newCatObj = {foodCategoriesName: newCatName, foods:[]}
+    console.log("Add Category: ", newCatName);
+
+
+    axios.post('http://localhost:4000/groceries//create-grocery-category', {foodCategoryName: newCatName, foods:[], }).then((res) => {
+      console.log(res.data._id);
+      setFoodCategories([...foodCategories, {foodCategoryName: newCatName, foods:[], _id: res.data._id}]);
+
+    }).catch((err) => {
+      console.log(err);
+    })
+
+    
+  }
 
   
 
 
   return (
     <div>
-        <Button variant="primary" onClick={handleShow}>
+        {/* <Button variant="primary" onClick={handleShow}>
           Add Foods
-        </Button>
+        </Button> */}
+        <div onClick={handleShow}  className="NewFoodDivBtn">
+          <p>+</p>
+        </div>
         <Offcanvas show={show} onHide={handleClose} placement="end" backdrop="static">
             <Offcanvas.Header closeButton>
               <Offcanvas.Title>FoodCategories</Offcanvas.Title>
@@ -46,10 +88,10 @@ function FoodOffCanvasMenu({fridge, setFridge, foodCategories, setFoodCategories
                     <Form.Group as={Row} className="mb-3 row" controlId="exampleForm.ControlInput1">
                       <Form.Label column  sm="4">Category Name: </Form.Label>
                       <Col sm="6">
-                        <Form.Control type="text" placeholder="Category Name" />
+                        <Form.Control type="text" placeholder="Category Name" value={newCatName} onChange={handleInputChange}/>
                       </Col>
                       <Col sm="2">
-                        <Button variant="outline-secondary">Add</Button>
+                        <Button variant="outline-secondary" onClick={handleClick}  >Add</Button>
                       </Col>
                     </Form.Group>
                     

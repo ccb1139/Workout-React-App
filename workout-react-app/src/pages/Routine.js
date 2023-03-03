@@ -42,8 +42,9 @@ function Fridge() {
             <div className="d-flex flex-wrap flex-md-nowrap align-items-center justify-content-center">
                 <MyFridge fridge={fridge} setFridge={setFridge} foodCategories={foodCategories}></MyFridge>
                 
-                <FoodOffCanvasMenu foodCategories={foodCategories} setFoodCategories={setFoodCategories} fridge={fridge} setFridge={setFridge}></FoodOffCanvasMenu>
+                
             </div>
+            <FoodOffCanvasMenu foodCategories={foodCategories} setFoodCategories={setFoodCategories} fridge={fridge} setFridge={setFridge}></FoodOffCanvasMenu>
             <DebugMenu fridge={fridge} setFridge={setFridge}></DebugMenu>
         </div>
     );

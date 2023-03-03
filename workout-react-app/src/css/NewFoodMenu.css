@@ -1,3 +1,24 @@
+.NewFoodDivBtn{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    background-color: #f8f9fa;
+    width: 50px;
+    height: 50px;
+
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+
+    text-align: center;
+    line-height: 40px;
+    font-size: 30px;
+    color: #ff3c3c;
+    cursor: pointer;
+}
+
 .offcanvas{
     width: 600px !important;
 }

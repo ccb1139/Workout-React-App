@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { FormControl, Form } from "react-bootstrap";
 
-function NewFoodForm({Items, addNewFoodInCat, ind}) {
+function NewFoodForm({Items, addNewFoodInCat, ind, _category}) {
   const [value, setValue] = useState("");
 
 
   const handleSubmit = (event) => {
+    console.log(Items, Items[ind])
+    console.log(event)
     // {"name":"Orange","category":"Fruits","_index":2,"selected":false}
     event.preventDefault();
     const len = Items.length;
     const foodItm = {
         name: value,
-        category: Items[ind]["category"],
+        category: _category,
         _index: len,
         selected: false,
     }
+    console.log(foodItm);
     addNewFoodInCat(foodItm, ind);
 
   };
